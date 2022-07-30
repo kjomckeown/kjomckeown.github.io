@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<!--
+	MegaCorp by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>KJo McKeown</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+        	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/cycle2.js"></script>
+		<script src="js/jquery.cycle2.center.js"></script>
+		<link href="css/jquery.selectbox.css" type="text/css" rel="stylesheet" />  
+		<script type="text/javascript" src="js/jquery.selectbox-0.2.min.js"></script>
+		<style>
+			.cycle-slideshow { transition:.3s;-webkit-transition:.3s;-moz-transition:.3s;width: 50%; height:1000px; margin:auto; }
+			.cycle-slideshow img { width: 100%; height: auto;user-select:none;-webkit-user-select:none; }
+			#previous {position:absolute;left:10px;top:30%;-webkit-transform:rotate(180deg);transform:rotate(180deg);-moz-transform:rotate(180deg);}
+			#next {position:absolute;right:10px;top:30%;}
+			.control{cursor:pointer;}
+			.control img{height:100px;width:100px;}
+			.sbHolder{z-index:100;position:absolute;right:20%;top:210px;}
+			#autoplayButton{margin-top:12px;padding:6px;border-radius:8px;border-width:1px;}
+			.on{background-color:green;}
+			.off{background-color:red;}
+		</style>
+		<script>
+			$(window).bind("load", function() {
+				autoplay = true;
+				$("#gallery").on('cycle-after',function() 
+                                {
+                                        setFilename(500);
+				});
+
+				$("#autoplayButton").click(function()
+				{
+					$("#autoplayButton").toggleClass("on");
+					$("#autoplayButton").toggleClass("off");
+					autoplay = (autoplay==true) ? false : true;
+					var autoplayButtonText = ($("#autoplayButton").html()=="AutoPlay: On") ? "AutoPlay: Off" : "AutoPlay: On";
+					$("#autoplayButton").html(autoplayButtonText);
+					if(autoplay)
+					{
+						$("#gallery").cycle("resume");
+					}
+					else
+					{
+						$("#gallery").cycle("pause");
+					}
+				});
+
+				$("#gallery").on('contextmenu',function(event){event.preventDefault();});
+				$("#gallery").on('cycle-before',function(event, opts){adjustWidth(opts);});
+				$("#gallery").on('cycle-post-initialize',function(event,opts){
+					$("#fileName").html($("#gallery img[style*='visibility: visible']").attr("src"));
+					
+					if(!autoplay)
+					{
+						$("#gallery").cycle("pause");
+					}					
+					
+					if($(".cycle-slide").eq(0).height() < $(".cycle-slide").eq(0).width())
+					{
+						$(".cycle-slideshow").width("80%");
+					}
+					else
+					{
+						$(".cycle-slideshow").width("50%");
+					}
+				});
+			});
+			function setFilename(time)
+			{
+				setTimeout(function(){
+					name = $("#gallery img[style*='visibility: visible']").attr("src");
+					$("#fileName").html(name);	
+				},time);
+			}
+			function adjustWidth(opts)
+			{
+				if($(".cycle-slide").eq((opts.nextSlide+1)%(opts.slideCount+1)).height() > $(".cycle-slide").eq((opts.nextSlide+1)%(opts.slideCount+1)).width())
+				{
+					$(".cycle-slideshow").width("50%");
+				}
+				else
+				{
+					$(".cycle-slideshow").width("80%");
+
+				}
+			}
+		</script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body>
+
+		<!-- Header -->
+		<div id="header-wrapper">
+		
+        	<div id="header" class="container">
+            
+            	<div id="logo"><h1 style='font-size:7pt;text-shadow:5px 5px 10px black;'><a style="font-size:3.2em;" href="./">KJo McKeown Photography</a></h1></div>
+
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">Homepage</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="current_page_item"><a href="galleries.html">Galleries</a></li>
+			<li><a href="clientGalleries.html">Client Galleries</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                    </ul>
+                </nav>
+                
+            </div>
+
+		</div>
+		<!-- Header Ends Here -->
+
+		<div class="cycle-prev control" id="previous"><img src="images/arrow.png"></div>
+		<div class="cycle-next control" id="next"><img src="images/arrow.png"></div>
+
+		<!-- Page -->
+        	<div id="page">
+            	<div class="container">
+			<div>
+				<select id="galleryPicker">
+			   		<option value="select" name="select">Select A Gallery</option>
+			   		<option value="seniors" name="seniors">Seniors / Portraits</option>
+			   		<option value="couples" name="couples">Couples / Weddings</option>
+			   		<option value="families" name="families">Children / Families</option>
+			   		<option value="nature" name="nature">Nature</option>
+					<option value="other" name="other">Other</option>
+				</select>
+				<div style="height:32px;">
+				<p id="galleryTitle" style="font-size:28pt;color:#586d26;font-weight:400;">Galleries</p>
+				<p style="color:white;" id="fileName">fileName.jpg</p>
+				</div>
+				<br>
+					<button id="autoplayButton" class="on">AutoPlay: On</button>
+				<br>
+				<hr style="opacity:.5;z-index:1000;">
+			</div>
+			<script type="text/javascript">
+				$("#galleryPicker").selectbox({
+					onChange: function(value,instance)
+					{
+						$.getScript("getImages.php?value="+value);
+						$("#galleryTitle").html(document.getElementsByName(value)[0].innerHTML);
+					}
+				});
+			</script>
+                    	<div id="content" class="12u skel-cell-important">
+				<div id="gallery" class="cycle-slideshow" 
+					data-cycle-speed="200"
+					data-cycle-center-horz=true
+					data-cycle-center-vert=false
+					data-cycle-prev="#previous"
+					data-cycle-next="#next"
+					>
+				</div>
+                        </div>
+                </div>
+           	</div>
+            
+		<!-- /Page -->
+
+		<!-- Copyright -->
+            <div id="copyright" class="container">
+                Design: <a href="http://templated.co">TEMPLATED</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+            </div>
+
+
+	</body>
+</html>
