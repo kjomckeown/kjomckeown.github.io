@@ -106,7 +106,7 @@
 			var selectedGallery = galleryOptions[0];
 			function nextImage(){
 				imageNumber++;
-				let url =  `/${selectedGallery}/${imageNumber}.jpg`
+				let url =  `/gallery_photos/${selectedGallery}/${imageNumber}.jpg`
 				if(UrlExists(url)){
 					showImage(url);
 				}
@@ -117,7 +117,7 @@
 
 			function prevImage(){
 				imageNumber--;
-				let url =  `/${selectedGallery}/${imageNumber}.jpg`
+				let url =  `/gallery_photos/${selectedGallery}/${imageNumber}.jpg`
 				if(UrlExists(url)){
 					showImage(url);
 				}
@@ -152,7 +152,7 @@
 					document.querySelector("#galleryImg").src = url;
 			}
 
-			showImage(`/${selectedGallery}/0.jpg`);
+			showImage(`/gallery_photos/${selectedGallery}/0.jpg`);
 		</script>
 
 
