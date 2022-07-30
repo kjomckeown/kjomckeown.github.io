@@ -131,6 +131,7 @@
 			function switchGallery(){
 				// alert(document.querySelector("#galleryOptions").value);
 				selectedGallery = document.querySelector("#galleryOptions").value;
+				showImage(`/gallery_photos/${selectedGallery}/0.jpg`);
 			}
 
 			for(let option of galleryOptions){
